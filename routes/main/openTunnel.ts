@@ -12,7 +12,9 @@ async function openTunnel(c: Context) {
         const { verified: aidVerified } = await verifyAid(aid, +userid)
         if (!aidVerified) return c.text('invalid request', 401)
 
-        const data = JSON.parse(await Redis.get('tunnels-' + id) || '') || false
+        const tunnelData = await Redis.get('tunnels-' + id) || false
+        if (!tunnelData) return c.text('invalid tunnel id', 404)
+        const data = JSON.parse(tunnelData)
         if (!data || typeof data != 'object') return c.text('invalid tunnel id', 404)
 
         const { amount } = await rewardUser(+userid)
