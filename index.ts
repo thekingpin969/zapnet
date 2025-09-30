@@ -1,5 +1,5 @@
 import { config } from 'dotenv'
-await config({ path: './.env' })
+config({ path: './.env' })
 
 import { serve } from "bun"
 import Database from './db/mongodb'
