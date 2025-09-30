@@ -8,8 +8,12 @@ TgBot.start((ctx) => start(ctx))
 
 TgBot.command('token', apiToken)
 
-TgBot.launch()
-console.log('bot running')
-
-
+if (process.env.NODE_ENV == 'production') {
+    const url = 'https://zapnet.onrender.com' + '/webhook'
+    TgBot.telegram.setWebhook(url, { secret_token: 'authorized_request_from_prozapnetbot' })
+    console.log('bot running throw webhook')
+} else {
+    TgBot.launch()
+    console.log('bot running')
+}
 export default TgBot

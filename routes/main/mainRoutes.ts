@@ -7,6 +7,7 @@ import getUserInfo from './getUserInfo';
 import withdraw from './withdraw';
 import adReward from './adReward';
 import getWithdrawRequests from './getWithdrawRequests';
+import botWebhookHandler from './webhook';
 
 const app = new Hono();
 app.use(cors({ origin: "*" }));
@@ -20,5 +21,6 @@ app.get('/getWithdrawRequests', getWithdrawRequests)
 app.post('/openTunnel', openTunnel)
 app.post('/withdraw', withdraw)
 app.post('/adReward', adReward)
+app.post('/webhook', botWebhookHandler)
 
 export default app
