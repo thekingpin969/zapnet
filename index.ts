@@ -6,13 +6,10 @@ import Database from './db/mongodb'
 import routes from './routes/routes'
 const db = new Database()
 
-Promise.allSettled([
-    import('./db/redis'),
-    import('./db/clickhouse'),
-    db.setDB(),
-    import('./bot/bot')
-
-])
+await import('./db/redis')
+await import('./db/clickhouse')
+await db.setDB()
+await import('./bot/bot')
 
 serve({
     fetch: routes.fetch,
